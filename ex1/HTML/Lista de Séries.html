@@ -5,14 +5,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de Séries</title>
+    <link rel="stylesheet" href="Lista de Séries.css">
 </head>
 <body>
     <ul>
         <li><a href="Prison Break.html">Prison Break</a></li>
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxGeyWdK_fO4ms5YupjCejDmQ-
+    JoET5tiuwukOmQeRoN_UVcKd" alt="Prison Break cover image" width="200" height="300">
+
         <li><a href="The Good Doctor.html">The Good Doctor</a></li>
+        <img src="https://crippledscholar.files.wordpress.com/2017/05/the-good-doctor.jpg" alt="The Good Doctor cover image" width="200" height="300">
     </ul>
 
-    <h1>Contact us</h1>
+    <h1>Contact us</h1> 
     <form>
         <div class="mb-3">
             <label for="name" class="text">Name</label>
@@ -26,6 +31,37 @@
         <div class="mb-3">
             <label for="exampleFormControlTextArea1" class="form-label">Write me your message, please</label>
             <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+        </div>
+        <div>
+            <p> Séries:
+                <select name="Séries">
+                <option value="todas">Todas</option>
+                <option value="">Nenhuma</option>
+                <option value="prison_break">Prison Break</option>
+                <option value="good_doctor">The Good Doctor</option>
+                <option value="the_careca">The Careca</option>
+                </select>
+            </p>                
+        </div>
+        <div>
+            <p>
+                Qual a melhor plataforma de streaming?
+                <input type="radio" name="series" value="netflix" checked="checked"/> Netflix
+                <input type="radio" name="series" value="hulu" /> Hulu+
+                <input type="radio" name="series" value="hbo" /> HBO
+                <input type="radio" name="series" value="amazon" /> Amazon Prime Video
+                <input type="radio" name="series" value="outra" /> Outra
+            </p>
+        </div>
+        <div>
+            <p>
+                Que plataformas já utilizaste?
+                <input type="checkbox" name="check_series" value="netflix" />Netflix
+                <input type="checkbox" name="check_series" value="hulu" /> Hulu
+                <input type="checkbox" name="check_series" value="hbo" /> HBO
+                <input type="checkbox" name="check_series" value="amazon" /> Amazon Prime Video
+                <input type="checkbox" name="check_series" value="outra" />Outra
+                </p>
         </div>
     </form>
 </body>
