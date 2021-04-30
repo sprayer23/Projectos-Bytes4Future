@@ -15,8 +15,8 @@ function diasDaSemana(d) {
     }
 
     // Se encontrar um número entre 1 a 7 então retornar o dia
-    if (d === dias) {
-        result =  dias
+    if (d > 0 && d < 8) {
+        result =  dias[d]
         return result
     }
 
@@ -30,4 +30,4 @@ function diasDaSemana(d) {
 
 //neste momento apenas esta a dar o numero invalido para qualquer numero
 
-console.log(diasDaSemana(3))
+    console.log(diasDaSemana(3))
