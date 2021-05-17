@@ -1,17 +1,5 @@
-// array de teste
-const joaquimAlberto = [
-    [5, 2, 4, 0, 3, 6],
-    [2, 4, 0, 9, 4, 1],
-    [1, 3, 6, 8],
-    [0, 5, 9, 7, 6]
-]
-
 function calculaMelhorColheita(filas) {
     // escreve aqui a função
-    /* 
-    joaquimAlberto[0][4] = 3
-    joaquimAlberto[0].length
-    */ 
     let indice = [];
     let index = 0;
     let max = 0;
