@@ -9,19 +9,16 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 var Cat =
 /*#__PURE__*/
 function () {
-  function Cat() {
+  function Cat(name, weight, maxJumpHeight) {
     _classCallCheck(this, Cat);
+
+    this.name = name;
+    this.weight = weight;
+    this.maxJumpHeight = maxJumpHeight;
+    this.verticalPosition = 0;
   }
 
   _createClass(Cat, [{
-    key: "construction",
-    value: function construction(name, weight, maxJumpHeight) {
-      this.name = name;
-      this.weight = weight;
-      this.maxJumpHeight = maxJumpHeight;
-      this.verticalPosition = 0;
-    }
-  }, {
     key: "jump",
     value: function jump(power) {
       this.verticalPosition += this.maxJumpHeight * power;

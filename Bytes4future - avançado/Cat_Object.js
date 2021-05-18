@@ -1,5 +1,5 @@
 class Cat {
-    construction(name, weight, maxJumpHeight)   {
+    constructor(name, weight, maxJumpHeight) {
         this.name = name;
         this.weight = weight;
         this.maxJumpHeight = maxJumpHeight;
