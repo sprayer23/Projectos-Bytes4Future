@@ -1,5 +1,6 @@
 function calculaFaixaEtaria(idade){
     // escreve aqui a função
+    let resultado
     switch(idade) {
         case (idade <= 11): 
             return "Criança";
@@ -13,5 +14,5 @@ function calculaFaixaEtaria(idade){
         case (idade >= 65): 
             return "Sénior";
             break;
-    }
+    }   
 }

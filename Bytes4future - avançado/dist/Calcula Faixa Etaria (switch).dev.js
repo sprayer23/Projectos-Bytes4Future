@@ -2,6 +2,8 @@
 
 function calculaFaixaEtaria(idade) {
   // escreve aqui a função
+  var resultado;
+
   switch (idade) {
     case idade <= 11:
       return "Criança";
