@@ -1,6 +1,6 @@
 function mesesDoAno(mes){
     // escreve aqui a função
-    const alberto = new Map([
+    const meses = new Map([
         [1, "Janeiro"],
         [2, "Fevereiro"],
         [3, "Março"],
@@ -15,8 +15,8 @@ function mesesDoAno(mes){
         [12, "Dezembro"]
     ])
 
-    if (alberto.has(mes)) {
-        return alberto.get(mes)
+    if (meses.has(mes)) {
+        return meses.get(mes)
     } 
     return "Por favor insira um número entre 1 e 12."
 }
