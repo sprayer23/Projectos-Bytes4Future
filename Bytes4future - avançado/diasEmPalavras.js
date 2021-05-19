@@ -71,7 +71,7 @@ function diaEmPalavras(dia, mes, ano){
         [2018, 'dois mil e dezoito'], 
         [2019, 'dois mil e dezanove'], 
         [2020, 'dois mil e vinte'], 
-        [2021, 'dois mil e vinte um'], 
+        [2021, 'dois mil e vinte e um'], 
         [2022, 'dois mil e vinte dois'], 
         [2023, 'dois mil e vinte três'], 
         [2024, 'dois mil e vinte quatro'], 
