@@ -1,11 +1,11 @@
 "use strict";
 
-function arrayDePares(array) {
+function arraySemN(n, array) {
   // escreve aqui a função
-  var arrayDump = [];
+  arrayDump = [];
 
   for (var i = 0; i < array.length; i++) {
-    if (array[i] % 2 === 0) {
+    if (array[i] != n) {
       arrayDump.push(array[i]);
     }
   }

@@ -3,7 +3,7 @@ function arrayDePares(array){
        let arrayDump = [];
 
        for (let i = 0; i < array.length; i++)   {
-           if(array[i] === 0)   {
+           if(array[i] % 2 === 0)   {
                arrayDump.push(array[i])
            }
        }
