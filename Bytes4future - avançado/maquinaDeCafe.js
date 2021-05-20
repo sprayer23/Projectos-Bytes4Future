@@ -7,6 +7,12 @@ class MaquinaDeCafe {
     #centimosParaTroco
     #estadoDepositoBorra
     #capacidadeDepositoBorra
+    #esvaziaDepositoBorra
+    #adicionaAgua
+    #adicionaCafe
+    #adicionaTroco
+    #capacidadeAgua
+    #capacidadeCafe
 
     constructor() {
         this.#custoDoCafe = 60;
@@ -17,6 +23,8 @@ class MaquinaDeCafe {
         this.#estadoDepositoBorra = 0;
         this.#capacidadeDepositoBorra = 10;
         this.#centimosParaTroco = 100000;
+        this.#capacidadeAgua = 10;
+        this.#capacidadeCafe = 10;
     }
 
     fazCafe() {
@@ -63,6 +71,11 @@ class MaquinaDeCafe {
         // Imprimir "A tirar café..."
         console.log("A tirar café...");
         return true;
+        // esvaziar o depósito de borra
+        esvaziaDepositoBora()   {
+            this.#estadoDepositoBorra = 0
+            return true
+        }
     }
 
     recebeCentimos(centimos) {
