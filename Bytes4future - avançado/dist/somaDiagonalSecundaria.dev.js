@@ -3,8 +3,8 @@
 function somaDiagonalSecundaria(matrizquadrada) {
   var soma = 0;
 
-  for (var i = matrizquadrada.length - 1; i >= 0; i--) {
-    soma += matrizquadrada[i][i];
+  for (var i = 0; i < matrizquadrada.length; i++) {
+    soma += matrizquadrada[matrizquadrada.length - 1 - i][i];
   }
 
   return soma;
