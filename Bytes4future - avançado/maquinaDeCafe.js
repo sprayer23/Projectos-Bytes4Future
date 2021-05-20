@@ -5,26 +5,25 @@ class MaquinaDeCafe {
     #dosesCafe
     #depositoReceitas
     #centimosParaTroco
+    #capacidadeCentimosParaTroco
     #estadoDepositoBorra
     #capacidadeDepositoBorra
-    #esvaziaDepositoBorra
-    #adicionaAgua
-    #adicionaCafe
-    #adicionaTroco
     #capacidadeAgua
     #capacidadeCafe
 
-    constructor() {
-        this.#custoDoCafe = 60;
+    constructor(custo, agua, cafe, borras, troco) {
+        this.#custoDoCafe = custo;
+        this.#capacidadeAgua = agua;
+        this.#capacidadeCafe = cafe;
+        this.#capacidadeDepositoBorra = borras;
+        this.#capacidadeCentimosParaTroco = troco;
+
         this.#centimosEmEspera = 0;
-        this.#dosesAgua = 10;
-        this.#dosesCafe = 10;
+        this.#dosesAgua = 0;
+        this.#dosesCafe = 0;
         this.#depositoReceitas = 0;
         this.#estadoDepositoBorra = 0;
-        this.#capacidadeDepositoBorra = 10;
-        this.#centimosParaTroco = 100000;
-        this.#capacidadeAgua = 10;
-        this.#capacidadeCafe = 10;
+        this.#centimosParaTroco = 0;
     }
 
     fazCafe() {
@@ -34,16 +33,16 @@ class MaquinaDeCafe {
             return false
         }
         // Verifica se tem doses de agua e café
+        if (this.#dosesAgua <= 0 && this.#dosesCafe <= 0) {
+            console.log(`Falta água e café.`)
+            return false;
+        }
         if (this.#dosesAgua <= 0) {
             console.log(`Falta água.`)
             return false;
         }
         if (this.#dosesCafe <= 0) {
             console.log(`Falta café.`)
-            return false;
-        }
-        if (this.#dosesAgua <= 0 && this.#dosesCafe <= 0) {
-            console.log(`Falta água e café.`)
             return false;
         }
         if (this.#centimosParaTroco < troco) {
@@ -71,11 +70,6 @@ class MaquinaDeCafe {
         // Imprimir "A tirar café..."
         console.log("A tirar café...");
         return true;
-        // esvaziar o depósito de borra
-        esvaziaDepositoBora()   {
-            this.#estadoDepositoBorra = 0
-            return true
-        }
     }
 
     recebeCentimos(centimos) {
@@ -106,9 +100,54 @@ Cêntimos em Espera: ${this.#centimosEmEspera}
 Cêntimos para Troco: ${this.#centimosParaTroco}
 Total cêntimos na máquina: ${this.#centimosParaTroco + this.#depositoReceitas}`
     }
+
+    // esvaziaDepositoBorra() que esvazia o deposito de borra
+    esvaziaDepositoBorra() {
+        this.#estadoDepositoBorra = 0;
+        return true;
+    }
+
+    // adicionaAgua(doses) que adiciona n doses de água ao depósito
+    adicionaAgua(doses) {
+        if (this.#dosesAgua + doses <= this.#capacidadeAgua) {
+            this.#dosesAgua += doses;
+        }
+        return this.#dosesAgua;
+    }
+    // adicionaCafe(doses) que adiciona n doses de café ao depósito
+    adicionaCafe(doses) {
+        if (this.#dosesCafe + doses <= this.#capacidadeCafe) {
+            this.#dosesCafe += doses;
+        }
+        return this.#dosesCafe;
+    }
+
+    // adicionaTroco(centimos) que adiciona n centimos ao depósito do troco
+
+    adicionaTroco(centimos) {
+        if (this.#centimosParaTroco + centimos 
+            <= this.#capacidadeCentimosParaTroco) {
+            this.#centimosParaTroco += centimos;
+        }
+        return this.#centimosParaTroco;
+    }
 }
 
-const mdc = new MaquinaDeCafe();
+// const mdc = new MaquinaDeCafe(10, 10, 10, 10, 100000);
+const mdc = new MaquinaDeCafe(50, 200, 200, 200, 1000000);
 mdc.recebeCentimos(600);
 mdc.fazCafe();
+console.log(mdc.toString())
+mdc.adicionaAgua(50)
+mdc.adicionaCafe(50)
+mdc.fazCafe();
+console.log(mdc.toString())
+mdc.cancelaOperacao()
+console.log(mdc.toString())
+mdc.recebeCentimos(60)
+mdc.fazCafe()
+console.log(mdc.toString())
+mdc.adicionaTroco(500)
+mdc.recebeCentimos(200)
+mdc.fazCafe()
 console.log(mdc.toString())
