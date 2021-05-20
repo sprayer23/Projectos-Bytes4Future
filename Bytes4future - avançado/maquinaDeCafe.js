@@ -1,91 +1,101 @@
 class MaquinaDeCafe {
     #custoDoCafe
     #centimosEmEspera
-    #dosesDeAgua
-    #dosesDeCafe
+    #dosesAgua
+    #dosesCafe
     #depositoReceitas
-    #centimosParaTroca
-    #depositoBorra
-    
+    #centimosParaTroco
+    #estadoDepositoBorra
+    #capacidadeDepositoBorra
 
-    constructor()   {
+    constructor() {
         this.#custoDoCafe = 60;
         this.#centimosEmEspera = 0;
-        this.#dosesDeAgua = 10;
-        this.#dosesDeCafe = 10;
-        this.#depositoReceias = 0;
+        this.#dosesAgua = 10;
+        this.#dosesCafe = 10;
+        this.#depositoReceitas = 0;
+        this.#estadoDepositoBorra = 0;
+        this.#capacidadeDepositoBorra = 10;
         this.#centimosParaTroco = 100000;
-        this.#depositoBorra = 10;
     }
 
-    fazCafe(){
-        const troco = this.centimosEmEspera - this.custoDoCafe;
-        if(troco < 0)   {
-            console.log(`Insira mais ${-troco} cêntimos`)
-            return false;
-        }
-
-        // Verifica se tem doses de água e café
-
-        if ( this.#dosesDeAgua <= 0)    {
-            console.log("Falta água");
+    fazCafe() {
+        const troco = this.#centimosEmEspera - this.#custoDoCafe;
+        if (troco < 0) {
+            console.log(`Insira mais ${troco * -1} cêntimos.`)
             return false
         }
-
-        if ( this.#dosesDeCafe <= 0)    {
-            console.log("Falta café");
-            return false
+        // Verifica se tem doses de agua e café
+        if (this.#dosesAgua <= 0) {
+            console.log(`Falta água.`)
+            return false;
         }
-
-        if (!(this.#dosesDeAgua > 0 && this.#dosesDeCafe > 0)) {
-            console.log("Falta água ou café");
+        if (this.#dosesCafe <= 0) {
+            console.log(`Falta café.`)
+            return false;
+        }
+        if (this.#dosesAgua <= 0 && this.#dosesCafe <= 0) {
+            console.log(`Falta água e café.`)
+            return false;
+        }
+        if (this.#centimosParaTroco < troco) {
+            console.log(`Não tem troco.`)
+            return false;
+        }
+        if (this.#estadoDepositoBorra >= this.#capacidadeDepositoBorra) {
+            console.log("Limpe a máquina.")
             return false;
         }
 
-        if (this.centimosParaTroco < troco) {
-            console.log("Não tem troco.");
-            return false;
-        }
-        if (this.#estadoDepositoBorra >= this.#CapacidadeDepositoBorra) {
-            console.log("Limpe a máquina.");
-            return false;
-        }
+        // Guardar #centimosEmEspera no depósito de Receitas
+        this.#depositoReceitas += this.#centimosEmEspera;
+        // Devolver o troco
+        this.devolveTroco();
+        // Limpa centimosEmEspera
+        this.#centimosEmEspera = 0;
+
+        // Consumir uma dose de agua
+        this.#dosesAgua -= 1; //--
+        // Consumir uma dose de café
+        this.#dosesCafe -= 1; //--
+        // Incrementar estado do depósito de borra
+        this.#estadoDepositoBorra += 1;
+        // Imprimir "A tirar café..."
+        console.log("A tirar café...");
+        return true;
     }
 
-    
+    recebeCentimos(centimos) {
+        this.#centimosEmEspera += centimos;
+        console.log(`Foram inseridos ${centimos}, existem ${this.#centimosEmEspera} cêntimos em espera.`)
+    }
 
-    // Guardar #centimosEmEspera no depósito de Receitas
-    this.#depositoReceias += this.#centimosEmEspera;
-    this.#centimosEmEspera = 0;
-    // Devolver o troco
-    this.devolveTroco(troco);
-    // Consumir uma dose de água
-    this.#dosesDeAgua -= 1;
-    // Consumir uma dose de café
-    this.#dosesDeCafe -= 1
-    // Incrementar estado do depósito de borra
-    this.#estadoDepositoBorra += 1
-    // Imprimir "A tirar café..."
-    
+    devolveTroco() {
+        const troco = this.#centimosEmEspera - this.#custoDoCafe;
+        this.#centimosParaTroco -= troco;
+        console.log(`Troco Devolvido (${troco})`)
+    }
 
+    cancelaOperacao() {
+        const centimosADevolver = this.#centimosEmEspera;
+        this.#centimosEmEspera = 0;
+        console.log("Operação Cancelada")
+        return centimosADevolver;
+    }
 
-recebeCentimos(centimos)    {
-    this.centimosEmEspera += centimos;
-}
-
-devolveTroco()  {
-    this.#centimosParaTroco -= troco;
-}
-
-cancelaOperacao()   {
-    const centimosADevolver = this.#centimosEmEspera;
-    this.#centimosEmEspera = 0;
-}
-
+    toString() {
+        return `Custo do Café: ${this.#custoDoCafe}
+Depósito Água: ${this.#dosesAgua}
+Depósito Café: ${this.#dosesCafe}
+Depósito Borra: ${this.#estadoDepositoBorra}/${this.#capacidadeDepositoBorra}
+Receitas: ${this.#depositoReceitas}
+Cêntimos em Espera: ${this.#centimosEmEspera}
+Cêntimos para Troco: ${this.#centimosParaTroco}
+Total cêntimos na máquina: ${this.#centimosParaTroco + this.#depositoReceitas}`
+    }
 }
 
 const mdc = new MaquinaDeCafe();
-mdc.recebeCentimos(30);
+mdc.recebeCentimos(600);
 mdc.fazCafe();
-mdc.cancelaOperacao();
-mdc.fazCafe();
+console.log(mdc.toString())
