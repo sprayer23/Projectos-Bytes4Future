@@ -1,7 +1,7 @@
 "use strict";
 
-function _readOnlyError(name) { throw new Error("\"" + name + "\" is read-only"); }
-
+// Encontra a moda de um Array de números, recorrendo a um Map.
+// Se dois elementos tiverem o maior número de ocorrências, retorna o menor.
 function moda(array) {
   var contadores = new Map();
   var _iteratorNormalCompletion = true;
@@ -43,12 +43,12 @@ function moda(array) {
   try {
     for (var _iterator2 = contadores.entries()[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
       var par = _step2.value;
-      var chave = par[0];
+      var numero = par[0];
       var contagem = par[1];
 
-      if (contagem > contagemMaisRepetido || contagem === contagemMaisRepetido && chave < maisRepetido) {
-        maisRepetido = (_readOnlyError("maisRepetido"), chave);
-        contagemMaisRepetido = (_readOnlyError("contagemMaisRepetido"), contagem);
+      if (contagem > contagemMaisRepetido || contagem === contagemMaisRepetido && numero < maisRepetido) {
+        maisRepetido = numero;
+        contagemMaisRepetido = contagem;
       }
     }
   } catch (err) {
@@ -69,4 +69,5 @@ function moda(array) {
   return maisRepetido;
 }
 
-var arr = [1, 3, 5, 2, 6, 2, 4, 3, 1, 2, 1];
+var arr = [6, 6, 3, 6, 5, 2, 6, 2, 4, 3, 1, 2, 1];
+console.log(moda(arr));
