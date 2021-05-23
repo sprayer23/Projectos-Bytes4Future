@@ -1,0 +1,6 @@
+"use strict";
+
+function perimetroDoQuadrado(lado) {
+  // escreve aqui a função
+  return lado * 4;
+}
