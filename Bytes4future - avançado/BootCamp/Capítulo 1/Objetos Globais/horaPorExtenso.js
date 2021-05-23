@@ -78,7 +78,7 @@ function horaPorExtenso(data){
         [47, 'e quarenta e sete'],
         [48, 'e quarenta e oito'],
         [49, 'e quarenta e nove'],
-        [50, 'cinquenta'],
+        [50, 'e cinquenta'],
         [51, 'e cinquenta e um'],
         [52, 'e cinquenta e dois'],
         [53, 'e cinquenta e três'],
