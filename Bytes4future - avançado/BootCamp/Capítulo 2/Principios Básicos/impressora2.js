@@ -1,5 +1,5 @@
 class Impressora {
-    #tinteiros
+    #tinteiros = []
     #alimentador
 
     insereTinteiro(tinteiro) {
