@@ -3,20 +3,21 @@ class Impressora {
     #alimentador
 
     insereTinteiro(tinteiro) {
-        this.#tinteiros.get(tinteiro);
+        this.#tinteiros.push(tinteiro);
     }
+
     insereAlimentadorDePapel(alimentador) {
         this.#alimentador = alimentador
     }
 
     imprimir() {
         if (this.#alimentador.capacidadeAtual > 0
-            && this.#tinteiros.filter(t => this.capacidadeAtual > 0).lenght == this.#tinteiros.length) {
-            this.#tinteiros.forEach(t => this.consumir())
+            && this.#tinteiros.filter(tinteiro => tinteiro.capacidadeAtual > 0).length == this.#tinteiros.length) {
+            this.#tinteiros.forEach(tinteiro => tinteiro.consumir())
             this.#alimentador.consumir();
-            return false;
+            return true;
         }
-        return true;
+        return false;
     }
 }
 
@@ -50,7 +51,7 @@ class TinteiroMagenta extends Tinteiro {}
 class TinteiroAmarelo extends Tinteiro {}
 class TinteiroCiano extends Tinteiro {}
 
-class AlimentadorPapel extends Consumivel {
+class AlimentadorDePapel extends Consumivel {
     constructor(capacidade) {
         super(capacidade);
     }
