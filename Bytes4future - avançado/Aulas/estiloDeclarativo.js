@@ -1,0 +1,1 @@
+const doubleMap = numbers => numbers.map(n => n * 2)
