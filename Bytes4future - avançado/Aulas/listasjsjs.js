@@ -125,9 +125,18 @@ console.log(insertionSort(lista).toString())
 
 
 function insereEmPosicao(arr, elem, i) {
-    arr[i] = elem;
     // TODO: mover os elementos a partir da posição i uma casa para a frente
-    elem[i + 1] = elem[i];
+    for (let j = arr.length - 1; j >= i; j--) {
+        arr[j + 1] = arr[j];
+    }
+    arr[i] = elem;
+}
+
+function removeEmPosicao(arr, i) {
+    // TODO: mover os elementos a partir da posição i uma casa para a frente
+    for (let j = i; j < arr.length; j++) {
+        arr[j] = arr[j + 1];
+    }
 }
 
 let array = [1, 2, 4];
