@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de Números</title>
+</head>
+<body>
+    <button onclick="gerar()">Gerar</button>
+    <p id="valor">Clique em Gerar</p>
+<script>
+    // Completar
+    function gerar() {
+            const dado1 = geraValor(1, 6);
+            const dado2 = geraValor(1, 6);
+            document.getElementById("valor")
+            innerHTML = `${dado1} + ${dado2} = ${dado1 + dado2}`;
+        }
+
+        function geraValor(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min
+        }
+
+</script>
+</body>
+</html>

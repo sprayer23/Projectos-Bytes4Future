@@ -6,27 +6,82 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        html, 
+        html,
         body {
+            padding: 0;
             margin: 0;
-            
         }
-        section {
+        section.container {
             display: flex;
             flex-direction: column;
             justify-content: center;
-            heigth: 100vh;
+            align-items: center;
+            height: 100vh;
         }
         #valor {
-            font-size: 80px;
-            font-weigth: 500;
+            font-size: 120px;
+            width: 160px;
+            height: 160px;
+            font-weight: 900;
+
+            background: #08BDBD;
+            color: #ffffff;
+
+            margin: 40px;
+            padding: 60px;
+            border-radius: 50%;
+
+            display: flex;
+            justify-content: center;
+            align-self: center;
+        }
+
+        #valor.incrementou {
+            background: #0B6E4F;
+            color: #ffffff;
+        }
+        #valor.decrementou {
+            background: #B4436C;
+            color: #ffffff;
+        }
+
+        button {
+            font-size: 40px;
+            width: 60px;
+            height: 60px;
+            font-weight: 900;
+
+            display: flex;
+            justify-content: center;
+            align-self: center;
+
+            border-radius: 50%;
+
+            border: none;
+
+            box-shadow: 0 0 3px 0 rgba(0,0,0,0.75);
+
+            transition: transform 1s cubic-bezier(0.075, 0.82, 0.165, 1), box-shadow 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+        }
+
+        button:hover {
+            transform: scale(2);
+            box-shadow: 0 0 10px 0 rgba(0,0,0,0.75);
+        }
+
+        button:active {
+            transform: scale(1.5);
+            box-shadow: 0 0 5px 0 rgba(0,0,0,0.75);
         }
     </style>
 </head>
 <body>
-    <p id="valor">0</p>
-    <button id="button_incrementa" onclick="incrementa()">Incrementar</button>
-    <button id="button_decrementa" onclick="decrementa()">Decrementar</button>
+    <section class="container">
+        <button id="button_incrementa" onclick="incrementa()">+</button>
+        <p id="valor">0</p>
+        <button id="button_decrementa" onclick="decrementa()">-</button>
+    </section>
+    
     <script>
         // let i = 0
         const LOTACAO_MAXIMA = 10;
@@ -38,6 +93,7 @@
             const paragrafo = document.getElementById("valor");
             const novaLotacao = parseInt(paragrafo.innerHTML) + 1;
             paragrafo.innerHTML = novaLotacao;
+            paragrafo.setAttribute('class', 'incrementou');
             atualizaEstadoButoes(novaLotacao);
         }
 
@@ -45,6 +101,7 @@
             const paragrafo = document.getElementById("valor");
             const novaLotacao = parseInt(paragrafo.innerHTML) - 1;
             paragrafo.innerHTML = novaLotacao;
+            paragrafo.setAttribute('class', 'decrementou');
             atualizaEstadoButoes(novaLotacao);
         }
 

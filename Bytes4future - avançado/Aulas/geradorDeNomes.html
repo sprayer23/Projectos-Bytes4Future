@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de Nomes</title>
+</head>
+
+<body>
+    <button onclick="gerar()">Gerar</button>
+    <p id="valor">Clique em Gerar</p>
+
+    <script>
+        function gerar() {
+            const nome = geraNomes["Joaquim", "Alberto", "Maria"]
+            const adjetivo = geraAdjetivos["Albertina", "Josefrino", "Cangalhas"]
+            document.getElementById("valor").innerHTML = `${nome} ${adjetivo}`;
+        }
+
+        function geraValor(nome, adjetivo) {
+            return (Math.random(nome, adjetivo)) 
+        }
+    </script>
+</body>
+
+</html>

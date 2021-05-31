@@ -1,6 +1,10 @@
 "use strict";
 
 function encontraPrimo(array) {
+  if (!array.some(primo)) {
+    return null;
+  }
+
   return array.find(function (e) {
     return primo(e);
   });

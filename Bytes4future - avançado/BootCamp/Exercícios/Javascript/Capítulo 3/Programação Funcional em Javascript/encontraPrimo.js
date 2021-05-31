@@ -1,5 +1,5 @@
 function encontraPrimo(array){
-
+    if (!array.some(primo)) {return null}
 
     return array.find(e => primo(e))
 
