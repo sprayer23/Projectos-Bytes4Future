@@ -13,10 +13,18 @@
         td {
             width: 24px;
             height: 24px;
-            border: 1px solid salmon;
-            color: salmon;
+            border: 1px solid black;
+            color: black;
             text-align: center;
             font-family: "Open Sans", sans-serif;
+        }
+        td.x {
+            color: hsl(335, 84%, 35%);
+            background: hsl(335, 84%, 90%);
+        }
+        td.o {
+            color: hsl(161, 82%, 24%);
+            background:  hsl(161, 82%, 90%);
         }
         td:first-child {
             border-left: none;
@@ -34,7 +42,7 @@
             border-bottom: none;
         }
         td:hover {
-            background: rgba(255, 140, 105, 0.3);
+            background: rgba(0, 0, 0, 0.3);
         }
     </style>
 </head>
@@ -86,6 +94,13 @@
             }
 
             obtemPerguntaProximoJogador() {
+                if (this.jogoTerminado()) {
+                    const vencedor = this.obtemVencedor();
+                    if (vencedor === undefined) {
+                        return "Empate";
+                    }
+                    return `O jogador ${vencedor} venceu!`
+                }
                 return `Jogador ${this.#proximoJogador}, qual é a tua jogada?`
             }
 
@@ -100,10 +115,12 @@
             // }
             registaJogada(linha, coluna) {
                 // linha e coluna entre 1 e 3
-                if (this.#tabuleiro[linha - 1][coluna - 1] === " ") {
+                if (this.#tabuleiro[linha - 1][coluna - 1] === " " && !this.jogoTerminado()) {
                     this.#tabuleiro[linha - 1][coluna - 1] = this.#proximoJogador;
                     this.#proximoJogador = this.#proximoJogador === "X" ? "O" : "X"
+                    return true;
                 }
+                return false;
             }
 
             get jogadorAtual() {
@@ -113,6 +130,9 @@
             jogoTerminado() {
                 // 1ª Alguem ganhou
                 // 2ª já não há jogadas possíveis
+                return this.obtemVencedor() !== undefined
+                    || !this.#tabuleiro.some(linha => 
+                            linha.some(e => e === " "))
             }
 
             obtemVencedor() {
@@ -134,9 +154,9 @@
                 }
                 linhas.push(diagonalInversa)
 
-                if (linhas.some(l === "XXX")) {
+                if (linhas.some(l => l === "XXX")) {
                     return "X"
-                } else if (linhas.some(l === "OOO")) {
+                } else if (linhas.some(l => l === "OOO")) {
                     return "O"
                 } else {
                     return undefined
@@ -153,18 +173,29 @@
             const celulas = document.getElementsByTagName("td");
             for (let i = 0; i < celulas.length; i++) {
                 celulas[i].innerHTML = "";
+                celulas[i].removeAttribute('class');
             }
+            atualizaEstado();
         })
+
+        function atualizaEstado() {
+            document.getElementById("estado").innerHTML = jogo.obtemPerguntaProximoJogador()
+        }
 
         function registaJogada(i, j) {
             console.log(i, j)
             const local = document.getElementById(`${i}${j}`)
-            if (local.innerHTML === "") {
-                local.innerHTML = jogo.jogadorAtual
+
+            const jogadorAtual = jogo.jogadorAtual;
+
+            if (jogo.registaJogada(i, j)) {
+                if (local.innerHTML === "") {
+                    local.innerHTML = jogadorAtual
+                    local.setAttribute('class', jogadorAtual.toLowerCase())
+                }
+                console.log(jogo.toString())
+                atualizaEstado()
             }
-            jogo.registaJogada(i, j);
-            console.log(jogo.toString())
-            document.getElementById("estado").innerHTML = jogo.obtemPerguntaProximoJogador()
         }
         
 
@@ -182,7 +213,7 @@
             return transposta;
         }
 
-        document.getElementById("estado").innerHTML = jogo.obtemPerguntaProximoJogador()
+        atualizaEstado();
     </script>
 </body>
 
