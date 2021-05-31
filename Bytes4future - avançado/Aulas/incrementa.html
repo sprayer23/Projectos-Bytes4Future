@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p id="valor">0</p>
+    <button id="button_incrementa" onclick="incrementa()">Incrementar</button>
+    <button id="button_decrementa" onclick="decrementa()">Decrementar</button>
+    <script>
+        // let i = 0
+        const LOTACAO_MAXIMA = 10;
+        document.getElementById("valor").innerHTML = LOTACAO_MAXIMA;
+        document.getElementById("button_incrementa")
+                .setAttribute('disabled', true)
+
+        function incrementa() {
+            const paragrafo = document.getElementById("valor");
+            const novaLotacao = parseInt(paragrafo.innerHTML) + 1;
+            paragrafo.innerHTML = novaLotacao;
+            atualizaEstadoButoes(novaLotacao);
+        }
+
+        function decrementa() {
+            const paragrafo = document.getElementById("valor");
+            const novaLotacao = parseInt(paragrafo.innerHTML) - 1;
+            paragrafo.innerHTML = novaLotacao;
+            atualizaEstadoButoes(novaLotacao);
+        }
+
+        function atualizaEstadoButoes(novaLotacao) {
+            if (novaLotacao <= 0) {
+                document.getElementById("button_decrementa")
+                        .setAttribute('disabled', true)
+            } else {
+                document.getElementById("button_decrementa")
+                        .removeAttribute('disabled')
+            }
+
+            if (novaLotacao >= LOTACAO_MAXIMA) {
+                document.getElementById("button_incrementa")
+                        .setAttribute('disabled', true)
+            } else {
+                document.getElementById("button_incrementa")
+                        .removeAttribute('disabled')
+            }
+        }
+    </script>
+</body>
+</html>
