@@ -13,14 +13,32 @@
     <p id="valor">Clique em Gerar</p>
 
     <script>
+        const nomes = [
+            "Jasmin", 
+            "Asdrubal", 
+            "Genopepa", 
+            "Maria", 
+            "Isadora", 
+            "Amélia",
+            "Mamadu",
+            "Ricardo",
+        ];
+        const adjetivos = [
+            "Voadora", 
+            "Flutuante", 
+            "Escanzelado", 
+            "Belo", 
+            "Perspicaz",
+            "Pindérico"
+        ];
         function gerar() {
-            const nome = geraNomes["Joaquim", "Alberto", "Maria"]
-            const adjetivo = geraAdjetivos["Albertina", "Josefrino", "Cangalhas"]
-            document.getElementById("valor").innerHTML = `${nome} ${adjetivo}`;
+            const indiceNome = geraValor(0, nomes.length - 1)
+            const indiceAdjetivo = geraValor(0, adjetivos.length - 1)
+            document.getElementById("valor").innerHTML = `${nomes[indiceNome]} ${adjetivos[indiceAdjetivo]}`;
         }
 
-        function geraValor(nome, adjetivo) {
-            return (Math.random(nome, adjetivo)) 
+        function geraValor(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min
         }
     </script>
 </body>
