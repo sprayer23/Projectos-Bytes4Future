@@ -32,7 +32,7 @@ class GeradorDeNomes extends React.Component {
     }
 
     gerarNome() {
-        return ${this.obtemAleatorio(this.#nomes)} ${this.obtemAleatorio(this.#adjetivos)}
+        return `${this.obtemAleatorio(this.#nomes)} ${this.obtemAleatorio(this.#adjetivos)}`
     }
 
     gerar() {
