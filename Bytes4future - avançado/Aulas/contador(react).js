@@ -1,4 +1,5 @@
 import React from "react";
+import './App.css'
 
 class Contador extends React.Component {
     constructor(props) {
@@ -7,12 +8,26 @@ class Contador extends React.Component {
             contador: 0
         }
         this.incrementa = this.incrementa.bind(this)
+        this.decrementa = this.decrementa.bind(this)
     }
 
     incrementa() {
-        this.setState((state) => ({
-            contador: state.contador + 1
-        }))
+        this.setState((state) => {
+            return {
+                contador: Math.min(
+                    state.contador + 1,
+                    this.props.maximo)
+            }
+        })
+    }
+    decrementa() {
+        this.setState((state) => {
+            return {
+                contador: Math.max(
+                    state.contador - 1,
+                    this.props.minimo)
+            }
+        })
     }
 
     render() {
@@ -22,7 +37,14 @@ class Contador extends React.Component {
         return (
             <section>
                 <p>{this.state.contador}</p>
-                <button onClick={this.incrementa}>Incrementar</button>
+                <button 
+                    disabled={this.state.contador >= this.props.maximo}
+                    onClick={this.incrementa}>Incrementar</button>
+                <button 
+                    disabled={this.state.contador <= this.props.minimo}
+                    onClick={this.decrementa}>
+                        Decrementar
+                </button>
             </section>
         )
     }
