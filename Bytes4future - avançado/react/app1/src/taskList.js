@@ -49,13 +49,10 @@ class TaskList extends React.Component {
     super(props);
     this.state = {
       tasks: [new Task("Tarefa 1", false), new Task("Tarefa 2", false)],
-      newTask: "",
-      completas: [],
       oculto: false
     }
 
     this.adicionar = this.adicionar.bind(this)
-    this.handleNewTaskChange = this.handleNewTaskChange.bind(this)
     this.remover = this.remover.bind(this)
     this.handleCheckboxChange = this.handleCheckboxChange.bind(this)
     this.handleTextChange = this.handleTextChange.bind(this)
@@ -79,21 +76,13 @@ class TaskList extends React.Component {
     }))
   }
 
-  adicionar() {
+  adicionar(newTask) {
     this.setState((state) => {
-      const novaTarefa = new Task(state.newTask, false);
+      const novaTarefa = new Task(newTask, false);
 
       return {
         tasks: state.tasks.concat(novaTarefa),
-        newTask: ""
       }
-    })
-  }
-
-  handleNewTaskChange(event) {
-    const { value } = event.target;
-    this.setState({
-      newTask: value
     })
   }
 
@@ -111,7 +100,7 @@ class TaskList extends React.Component {
   }
 
   render() {
-    const tasks = this.state.oculto 
+    const tasks = this.state.oculto
       ? this.state.tasks.filter(task => !task.concluida)
       : this.state.tasks
     return (
@@ -119,49 +108,77 @@ class TaskList extends React.Component {
         <ul>
           {
             tasks.map((task) => (
-                <TaskItem
-                  key={task.id}
-                  task={task}
-                  handleCheckboxChange={this.handleCheckboxChange}
-                  handleTextChange={this.handleTextChange}
-                  remover={this.remover}
-                />
-              ))
+              <TaskItem
+                key={task.id}
+                task={task}
+                handleCheckboxChange={this.handleCheckboxChange}
+                handleTextChange={this.handleTextChange}
+                remover={this.remover}
+              />
+            ))
           }
         </ul>
-        {/* <AddTaskForm />
-        <VisibilityToggle />
-        <TaskListMetaInfo /> */}
-        <input
-          type="text"
-          value={this.state.newTask}
-          onChange={this.handleNewTaskChange}
+        <AddTaskForm onAdd={this.adicionar} />
+        <VisibilityToggle
+          oculto={this.state.oculto}
+          onClick={this.toggleVisibility}
         />
-        <button onClick={this.adicionar}>Adicionar</button>
-        <button onClick={this.toggleVisibility}>
-          {
-            this.state.oculto === false
-            ? "Ocultar"
-            : "Mostrar"
-          }
-          
-        </button>
-        <p>
-          Número de tarefas por concluir: { 
+        <TaskListMetaInfo
+          notDone={
             this.state.tasks
               .filter(task => !task.concluida)
               .length
           }
-          <br />
-          Número de tarefas concluídas: { 
+          done={
             this.state.tasks
               .filter(task => task.concluida)
               .length
           }
-        </p>
+        />
       </div>
     )
   }
+}
+
+function AddTaskForm({onAdd}) {
+  const [value, setValue] = React.useState("");
+  // this.state = {value: ""}
+
+  return (
+    <div>
+      <input
+        type="text"
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+      />
+      <button onClick={() => {
+        onAdd(value);
+        setValue("");
+      }}>Adicionar</button>
+    </div>
+  )
+}
+
+function VisibilityToggle({ oculto, onClick }) {
+  return (
+    <button onClick={onClick}>
+      {
+        oculto === false
+          ? "Ocultar"
+          : "Mostrar"
+      }
+    </button>
+  )
+}
+
+function TaskListMetaInfo({ done, notDone }) {
+  return (
+    <p>
+      Número de tarefas por concluir: {notDone}
+      <br />
+      Número de tarefas concluídas: {done}
+    </p>
+  )
 }
 
 function TaskItem(props) {
