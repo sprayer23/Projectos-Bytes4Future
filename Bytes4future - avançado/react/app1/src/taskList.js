@@ -7,13 +7,16 @@ import { v4 as uuidv4 } from 'uuid';
 function App() {
   return (
     // <CheckList items={["Item 1", "Item 2", "Item 3"]} />
-    <TaskList />
+    <div>
+      <TaskList />
+      {/* <TaskCount /> */}
+    </div>
   );
 }
 
-// Cria um Componente TaskList que:
+// Cria uma TaskList que permite:\
 
-// deve ser possível remover elementos da lista
+// Separa a tua solução por vários componentes.
 
 class Task {
   #concluida
@@ -46,11 +49,17 @@ class TaskList extends React.Component {
     super(props);
     this.state = {
       tasks: [new Task("Tarefa 1", false), new Task("Tarefa 2", false)],
-      newTask: ""
+      newTask: "",
+      completas: [],
+      oculto: false
     }
 
     this.adicionar = this.adicionar.bind(this)
     this.handleNewTaskChange = this.handleNewTaskChange.bind(this)
+    this.remover = this.remover.bind(this)
+    this.handleCheckboxChange = this.handleCheckboxChange.bind(this)
+    this.handleTextChange = this.handleTextChange.bind(this)
+    this.toggleVisibility = this.toggleVisibility.bind(this)
   }
 
   handleCheckboxChange(event, task) {
@@ -78,48 +87,106 @@ class TaskList extends React.Component {
         tasks: state.tasks.concat(novaTarefa),
         newTask: ""
       }
-    })  
+    })
   }
 
   handleNewTaskChange(event) {
-    const {value} = event.target;
+    const { value } = event.target;
     this.setState({
       newTask: value
     })
   }
 
+  remover(task) {
+    console.log('remove a task', task.descricao)
+    this.setState(({ tasks }) => ({
+      tasks: tasks.filter(t => t !== task)
+    }))
+  }
+
+  toggleVisibility() {
+    this.setState((state) => ({
+      oculto: !state.oculto,
+    }))
+  }
+
   render() {
+    const tasks = this.state.oculto 
+      ? this.state.tasks.filter(task => !task.concluida)
+      : this.state.tasks
     return (
       <div>
         <ul>
-          {this.state.tasks.map((task) => (
-            <li
-              className={task.concluida ? "concluido" : ""}
-              key={task.id}>
-              <input
-                type="checkbox"
-                checked={task.concluida}
-                onChange={(event) => this.handleCheckboxChange(event, task)} />
-              {
-                !task.concluida
-                ? <input
-                  type="text"
-                  value={task.descricao}
-                  onChange={(event) => this.handleTextChange(event, task)} />
-                : task.descricao
-              }
-            </li>
-          ))}
+          {
+            tasks.map((task) => (
+                <TaskItem
+                  key={task.id}
+                  task={task}
+                  handleCheckboxChange={this.handleCheckboxChange}
+                  handleTextChange={this.handleTextChange}
+                  remover={this.remover}
+                />
+              ))
+          }
         </ul>
-        <input 
+        {/* <AddTaskForm />
+        <VisibilityToggle />
+        <TaskListMetaInfo /> */}
+        <input
           type="text"
           value={this.state.newTask}
           onChange={this.handleNewTaskChange}
-          />
+        />
         <button onClick={this.adicionar}>Adicionar</button>
+        <button onClick={this.toggleVisibility}>
+          {
+            this.state.oculto === false
+            ? "Ocultar"
+            : "Mostrar"
+          }
+          
+        </button>
+        <p>
+          Número de tarefas por concluir: { 
+            this.state.tasks
+              .filter(task => !task.concluida)
+              .length
+          }
+          <br />
+          Número de tarefas concluídas: { 
+            this.state.tasks
+              .filter(task => task.concluida)
+              .length
+          }
+        </p>
       </div>
     )
   }
+}
+
+function TaskItem(props) {
+  // const task = props.task;
+  const { task, handleCheckboxChange, handleTextChange, remover } = props;
+  return (
+    <li
+      className={task.concluida ? "concluido" : ""}>
+      <input
+        type="checkbox"
+        checked={task.concluida}
+        onChange={(event) => handleCheckboxChange(event, task)} />
+      {
+        !task.concluida
+          ? <input
+            type="text"
+            value={task.descricao}
+            onChange={(event) => handleTextChange(event, task)} />
+          : task.descricao
+      }
+      <button onClick={() => remover(task)}>
+        X
+      </button>
+    </li>
+  )
 }
 
 class Reservation extends React.Component {
